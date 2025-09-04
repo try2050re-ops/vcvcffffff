@@ -117,6 +117,8 @@ export function ResultCard({ name, grade, category, rank }: ResultCardProps) {
               {rank === 2 && "🥈 المركز الثاني"}
               {rank === 3 && "🥉 المركز الثالث"}
             </Badge>
+          </div>
+        )}
       </CardHeader>
 
       <CardContent className="text-center">
