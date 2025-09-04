@@ -136,7 +136,6 @@ export function ResultCard({ name, grade, category }: ResultCardProps) {
                 </div>
               </div>
             </div>
-            </p>
           </div>
         )}
         
