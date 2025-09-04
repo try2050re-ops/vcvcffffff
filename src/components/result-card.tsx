@@ -52,6 +52,21 @@ export function ResultCard({ name, grade, category, rank }: ResultCardProps) {
   const gradeColor = getGradeColor(grade)
   const message = getResultMessage(grade)
 
+  const getCategoryName = (category?: number) => {
+    switch (category) {
+      case 1: return "جزء واحد"
+      case 2: return "جزءين"
+      case 3: return "ثلاثة أجزاء"
+      case 4: return "أربعة أجزاء"
+      case 5: return "خمسة أجزاء"
+      case 10: return "عشرة أجزاء"
+      case 15: return "خمسة عشر جزءاً"
+      case 20: return "عشرون جزءاً"
+      case 30: return "القرآن كاملاً"
+      default: return "غير محدد"
+    }
+  }
+
   return (
     <Card className={cn(
       "w-full max-w-md mx-auto transition-all duration-500 hover:scale-105 islamic-pattern",
@@ -70,6 +85,23 @@ export function ResultCard({ name, grade, category, rank }: ResultCardProps) {
             <Icon className="h-8 w-8" />
           </div>
         </div>
+        
+        {/* عرض الترتيب فوق الاسم */}
+        {rank && category && (
+          <div className="mb-4">
+            <Badge 
+              variant="outline" 
+              className={cn(
+                "text-lg font-bold px-4 py-2 border-2",
+                rank <= 3 
+                  ? "bg-gradient-golden text-accent-foreground border-accent/40 golden-glow" 
+                  : "bg-gradient-islamic text-primary-foreground border-primary/40 glow-effect"
+              )}
+            >
+              الترتيب {rank} في فئة {getCategoryName(category)}
+            </Badge>
+          </div>
+        )}
         
         <CardTitle className="text-xl font-bold mb-2 text-foreground">
           {name}
@@ -108,17 +140,6 @@ export function ResultCard({ name, grade, category, rank }: ResultCardProps) {
             )}
           </div>
         </div>
-        
-        {/* إضافة أيقونة خاصة للمراكز الثلاثة الأولى */}
-        {rank && rank <= 3 && (
-          <div className="flex justify-center mt-3">
-            <Badge variant="outline" className="text-sm">
-              {rank === 1 && "🥇 المركز الأول"}
-              {rank === 2 && "🥈 المركز الثاني"}
-              {rank === 3 && "🥉 المركز الثالث"}
-            </Badge>
-          </div>
-        )}
       </CardHeader>
 
       <CardContent className="text-center">
