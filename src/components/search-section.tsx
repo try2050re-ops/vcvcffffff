@@ -11,6 +11,7 @@ interface Result {
   no: number
   category?: number | null
   grade?: number | null
+  rank?: number | null
 }
 
 export function SearchSection() {
@@ -159,6 +160,7 @@ export function SearchSection() {
               name={result.name || "غير محدد"}
               grade={result.grade || 0}
               category={result.category}
+              rank={result.rank}
             />
           ))}
         </div>

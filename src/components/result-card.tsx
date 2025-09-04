@@ -7,6 +7,7 @@ interface ResultCardProps {
   name: string
   grade: number
   category?: number
+  rank?: number
 }
 
 const getResultMessage = (grade: number) => {
@@ -45,7 +46,7 @@ const getGradeColor = (grade: number) => {
   return "secondary"
 }
 
-export function ResultCard({ name, grade, category }: ResultCardProps) {
+export function ResultCard({ name, grade, category, rank }: ResultCardProps) {
   const isSuccess = grade >= 85
   const Icon = getGradeIcon(grade)
   const gradeColor = getGradeColor(grade)
@@ -86,12 +87,36 @@ export function ResultCard({ name, grade, category }: ResultCardProps) {
           >
             {grade} درجة
           </Badge>
-          {category && (
-            <Badge variant="outline" className="text-sm">
-              فئة {category}
-            </Badge>
-          )}
+          <div className="flex flex-col gap-2">
+            {category && (
+              <Badge variant="outline" className="text-sm">
+                فئة {category}
+              </Badge>
+            )}
+            {rank && category && (
+              <Badge 
+                variant="outline" 
+                className={cn(
+                  "text-sm font-bold",
+                  rank <= 3 
+                    ? "bg-gradient-golden text-accent-foreground border-accent/30" 
+                    : "bg-secondary text-secondary-foreground"
+                )}
+              >
+                الترتيب {rank} في الفئة {category}
+              </Badge>
+            )}
+          </div>
         </div>
+        
+        {/* إضافة أيقونة خاصة للمراكز الثلاثة الأولى */}
+        {rank && rank <= 3 && (
+          <div className="flex justify-center mt-3">
+            <Badge variant="outline" className="text-sm">
+              {rank === 1 && "🥇 المركز الأول"}
+              {rank === 2 && "🥈 المركز الثاني"}
+              {rank === 3 && "🥉 المركز الثالث"}
+            </Badge>
       </CardHeader>
 
       <CardContent className="text-center">
